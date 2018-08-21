@@ -7,6 +7,7 @@ return [
 	'lists:settings:pagination_type:off' => 'Off',
 	'lists:settings:pagination_type:default' => 'Default',
 	'lists:settings:pagination_type:infinite' => 'Infinite',
+	'lists:settings:pagination_type:infinite_autoload' => 'Infinite (with autoload)',
 
 	'lists:load:before' => 'show previous %s',
 	'lists:load:after' => 'show next %s',

@@ -15,6 +15,7 @@ echo elgg_view_field([
 		'' => elgg_echo('lists:settings:pagination_type:off'),
 		'default' => elgg_echo('lists:settings:pagination_type:default'),
 		'infinite' => elgg_echo('lists:settings:pagination_type:infinite'),
+		'infinite_autoload' => elgg_echo('lists:settings:pagination_type:infinite_autoload'),
 	],
 ]);
 

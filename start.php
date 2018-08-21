@@ -75,6 +75,11 @@ function hypelists_wrap_list_view_hook($hook, $type, $view, $params) {
 	if (!$pagination && !$pagination_type) {
 		return;
 	}
+	$pagination_autoload = false;
+	if ($pagination_type === 'infinite_autoload') {
+		$pagination_type = 'infinite';
+		$pagination_autoload = true;
+	}
 
 	$no_results = elgg_extract('no_results', $vars, '');
 	$no_results_str = ($no_results instanceof Closure) ? $no_results() : $no_results;
@@ -110,6 +115,7 @@ function hypelists_wrap_list_view_hook($hook, $type, $view, $params) {
 		'data-count' => elgg_extract('count', $vars, 0),
 		'data-pager' => $pagination ? 'visible' : 'hidden',
 		'data-pagination' => $pagination_type,
+		'data-pagination-autoload' => $pagination_autoload,
 		'data-pagination-position' => elgg_extract('position', $vars, ($pagination_type === 'infinite') ? 'both' : 'after'),
 		'data-pagination-num-pages' => (int) elgg_extract('num_pages', $vars, 5),
 		'data-text-no-results' => $no_results_str,

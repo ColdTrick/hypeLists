@@ -3,6 +3,39 @@ define(function (require) {
 	var elgg = require('elgg');
 	var $ = require('jquery');
 	var hypeList = require('components/list/list');
+	
+	var debounce = function (func, wait, immediate) {
+		var timeout;
+		return function() {
+			var context = this, args = arguments;
+			var later = function() {
+				timeout = null;
+				if (!immediate) func.apply(context, args);
+			};
+			var callNow = immediate && !timeout;
+			clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+			if (callNow) func.apply(context, args);
+		};
+	};
+	
+	var checkScroll = function() {
+		var $elem = $('ul.elgg-pagination-infinite.elgg-pagination-after');
+		if (!$elem.length) {
+			return;
+		}
+		
+		var docViewTop = $(window).scrollTop();
+	    var docViewBottom = docViewTop + $(window).height() + 500; // make screen larger to prevent button from comming into view
+
+	    var elemTop = $elem.offset().top;
+	    var elemBottom = elemTop + $elem.height();
+
+	    if ((elemBottom <= docViewBottom) && (elemTop >= docViewTop)) {
+	    	$elem.find('> li > a').click();
+	    }
+	};
+	
 	/**
 	 * hypeListPagination constructor
 	 * Inherits from hypeList constructor
@@ -201,6 +234,11 @@ define(function (require) {
 					self[callback].apply(self, [index]);
 				});
 			});
+			
+			if (self.options.paginationAutoload) {
+				$(document).off('scroll.hypeList');
+				$(document).on('scroll.hypeList', debounce(checkScroll, 100));
+			}
 		},
 		/**
 		 * Switch to a different page
@@ -212,5 +250,6 @@ define(function (require) {
 			this.$list.hypeList('goToPage', pageIndex);
 		}
 	});
+	
 	return hypeListPagination;
 });
