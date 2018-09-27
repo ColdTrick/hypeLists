@@ -348,22 +348,22 @@ define(function (require) {
 				for (var i = Math.max.apply(null, self.options.visiblePages); i <= pageIndex; i++) {
 					self.loadPage(i, self.showLoader, function (i) {
 						self.options.visiblePages.push(i);
-						self.hideLoader();
+						//self.hideLoader();
 					});
 				}
 			} else {
 				for (var i = Math.min.apply(null, self.options.visiblePages); i >= pageIndex; i--) {
 					self.loadPage(i, self.showLoader, function (i) {
 						self.options.visiblePages.push(i);
-						self.hideLoader();
+						//self.hideLoader();
 					});
 				}
 			}
 
 			self.loadPage(pageIndex, self.showLoader, function (pageIndex) {
 				self.options.activePage = pageIndex;
-				self.hideLoader();
 				$(self).trigger('pageShown', [pageIndex]);
+				self.hideLoader();
 			});
 		},
 		/**
