@@ -1,0 +1,5 @@
+.elgg-list-container:not(.elgg-state-ready) {
+	.elgg-pagination {
+		display: none;
+	}
+}

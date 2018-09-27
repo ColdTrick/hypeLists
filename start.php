@@ -45,6 +45,7 @@ function hypelists_init() {
 	}
 
 	elgg_extend_view('elgg.css', 'forms/lists/sort.css');
+	elgg_extend_view('elgg.css', 'components/list/pagination.css');
 }
 
 /**
