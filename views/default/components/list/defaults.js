@@ -21,6 +21,7 @@ define(function (require) {
 		keyTextBefore: 'lists:load:before', // Language key for before link (will receive limit as parameter)
 		keyTextAfter: 'lists:load:after', // Language key for before link (will receive limit as parameter)
 		keyTextRemaining: 'lists:load:remaining', // Language key for show remaining items link
+		keyTextLoading: 'lists:load:loading', // Language key for loading items link
 		lazyLoad: 0, // Number of pages to lazy load
 		autoRefresh: false, // Fetch new items at this interval (in seconds)
 		reversed: false, // List is reversed that is new items are appended to the end of the list

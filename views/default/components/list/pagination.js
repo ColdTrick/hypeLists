@@ -229,6 +229,7 @@ define(function (require) {
 				$elem.on('click.hypeList', function (e) {
 					e.preventDefault();
 					$(this).addClass(self.options.classLoading);
+					$(this).find('> a').html(elgg.echo(self.options.keyTextLoading));
 					var callback = $(this).data('callback');
 					var index = parseInt($(this).data('page-index'), 10);
 					self[callback].apply(self, [index]);

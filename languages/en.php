@@ -12,6 +12,7 @@ return [
 	'lists:load:before' => 'show previous %s',
 	'lists:load:after' => 'show next %s',
 	'lists:load:remaining' => 'show remaining',
+	'lists:load:loading' => 'currently loading more content',
 
 	'sort:group:alpha::asc' => 'Alphabetically',
 	'sort:group:alpha::desc' => 'Reverse alphabetically',
