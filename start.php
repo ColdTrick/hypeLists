@@ -137,7 +137,16 @@ function hypelists_wrap_list_view_hook($hook, $type, $view, $params) {
 	}
 
 	$script = elgg_view('components/list/require');
-	return elgg_format_element('div', $wrapper_params, $view) . $script;
+	$result = elgg_format_element('div', $wrapper_params, $view) . $script;
+	
+	if (elgg_is_xhr() && get_input('list_id') === $list_id) {
+		$response = elgg_ok_response($result);
+		
+		_elgg_services()->responseFactory->respond($response);
+		exit();
+	}
+	
+	return $result;
 }
 
 /**
