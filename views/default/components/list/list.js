@@ -364,6 +364,7 @@ define(function (require) {
 				self.options.activePage = pageIndex;
 				$(self).trigger('pageShown', [pageIndex]);
 				self.hideLoader();
+				$(document).scroll();
 			});
 		},
 		/**
