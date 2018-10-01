@@ -89,9 +89,9 @@ function hypelists_wrap_list_view_hook($hook, $type, $view, $params) {
 	$no_results = elgg_extract('no_results', $vars, '');
 	$no_results_str = ($no_results instanceof Closure) ? $no_results() : $no_results;
 
-	$list_classes = $type == 'page/components/gallery' ? ['elgg-gallery'] : ['elgg-list'];
+	$list_classes = $type == 'page/components/gallery' ? ['elgg-gallery'] : ['elgg-list', 'fasfsafasd'];
 	if (isset($vars['list_class'])) {
-		$list_classes[] = $vars['list_class'];
+		$list_classes = elgg_extract_class($vars, $list_classes, 'list_class');
 	}
 
 	$base_url = hypelists_prepare_base_url(elgg_extract('base_url', $vars));
