@@ -20,7 +20,7 @@ define(function (require) {
 	};
 	
 	var checkScroll = function() {
-		var $elem = $('ul.elgg-pagination-infinite.elgg-pagination-after');
+		var $elem = $('ul.elgg-pagination-infinite.elgg-pagination-after:visible');
 		if (!$elem.length) {
 			return;
 		}
