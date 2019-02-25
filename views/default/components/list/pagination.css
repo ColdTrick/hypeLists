@@ -1,5 +1,14 @@
-.elgg-list-container:not(.elgg-state-ready) {
-	.elgg-pagination {
-		display: none;
+.elgg-list-container {
+	
+	&:not(.elgg-state-ready) {
+		.elgg-pagination {
+			display: none;
+		}
+	}
+	
+	> .elgg-list {
+		li.hypeHidden {
+			display: none;
+		}
 	}
 }

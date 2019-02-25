@@ -14,7 +14,7 @@ define(function (require) {
 		classDisabled: 'elgg-state-disabled', // CSS class for disabled elements
 		classLoading: 'elgg-state-loading', // CSS class for loading elements
 		classVisible: 'elgg-discoverable', // CSS class for visible elements
-		classHidden: 'hidden', // CSS class for hidden elements
+		classHidden: 'hypeHidden', // CSS class for hidden elements
 		textNoResults: '', // Text displayed when no items were found in the list
 		textNext: elgg.echo('next'), // Text for next link
 		textPrev: elgg.echo('previous'), // Text for previous link

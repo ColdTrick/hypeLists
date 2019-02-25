@@ -94,7 +94,7 @@ function hypelists_wrap_list_view_hook($hook, $type, $view, $params) {
 		$list_classes = elgg_extract_class($vars, $list_classes, 'list_class');
 	}
 
-	$base_url = hypelists_prepare_base_url(elgg_extract('base_url', $vars));
+	$base_url = hypelists_prepare_base_url(elgg_extract('base_url', $vars), $vars);
 
 	$list_id = (isset($vars['list_id'])) ? $vars['list_id'] : '';
 	if (!$list_id) {
@@ -164,7 +164,7 @@ function hypelists_wrap_list_view_hook($hook, $type, $view, $params) {
  */
 function hypelists_filter_vars($hook, $type, $vars, $params) {
 
-	$vars['base_url'] = hypelists_prepare_base_url(elgg_extract('base_url', $vars));
+	$vars['base_url'] = hypelists_prepare_base_url(elgg_extract('base_url', $vars), $vars);
 	return $vars;
 }
 
@@ -172,9 +172,10 @@ function hypelists_filter_vars($hook, $type, $vars, $params) {
  * Normalize base_url
  *
  * @param string $base_url Base URL
+ * @param array  $vars     view vars
  * @return string
  */
-function hypelists_prepare_base_url($base_url = null) {
+function hypelists_prepare_base_url($base_url = null, $vars = []) {
 
 	if (empty($base_url)) {
 		// navigation/pagination sets this to Referrer on XHR calls
@@ -186,7 +187,7 @@ function hypelists_prepare_base_url($base_url = null) {
 	$base_url = elgg_normalize_url($base_url);
 	
 	$base_url = elgg_http_remove_url_query_element($base_url, 'limit');
-	$base_url = elgg_http_remove_url_query_element($base_url, 'offset');
+	$base_url = elgg_http_remove_url_query_element($base_url, elgg_extract('offset_key', $vars, 'offset'));
 
 	return $base_url;
 }
