@@ -4,22 +4,23 @@ define(function (require) {
 	var $ = require('jquery');
 	var hypeList = require('components/list/list');
 	
+	var debounceTimeout;
 	var debounce = function (func, wait, immediate) {
-		var timeout;
 		return function() {
 			var context = this, args = arguments;
 			var later = function() {
-				timeout = null;
+				debounceTimeout = null;
 				if (!immediate) func.apply(context, args);
 			};
 			var callNow = immediate && !timeout;
-			clearTimeout(timeout);
-			timeout = setTimeout(later, wait);
+			clearTimeout(debounceTimeout);
+			debounceTimeout = setTimeout(later, wait);
 			if (callNow) func.apply(context, args);
 		};
 	};
 	
 	var checkScroll = function() {
+		console.log('check');
 		var $elem = $('ul.elgg-pagination-infinite.elgg-pagination-after:visible');
 		if (!$elem.length) {
 			return;
