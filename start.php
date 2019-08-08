@@ -51,25 +51,23 @@ function hypelists_init() {
 /**
  * Wrap list views into a container that can be manipulated
  *
- * @param string $hook   "view"
- * @param string $type   "page/components/list" or "page/components/gallery"
- * @param string $view   View
- * @param array  $params Hook params
+ * @param \Elgg\Hook $hook "view", "page/components/list" or "page/components/gallery"
+ *
  * @return string Wrapped view
  */
-function hypelists_wrap_list_view_hook($hook, $type, $view, $params) {
+function hypelists_wrap_list_view_hook(\Elgg\Hook $hook) {
 
-	$viewtype = elgg_extract('viewtype', $params, 'default');
+	$viewtype = $hook->getParam('viewtype', 'default');
 	if ($viewtype !== 'default') {
 		return;
 	}
 
-	$vars = elgg_extract('vars', $params);
+	$vars = $hook->getParam('vars');
 
 	$pagination = elgg_extract('pagination', $vars);
 	$pagination_type = elgg_extract('pagination_type', $vars, elgg_get_plugin_setting('pagination_type', 'hypeLists'));
 
-	if (empty($view)) {
+	if (empty($hook->getValue())) {
 		return;
 	}
 	
@@ -89,7 +87,7 @@ function hypelists_wrap_list_view_hook($hook, $type, $view, $params) {
 	$no_results = elgg_extract('no_results', $vars, '');
 	$no_results_str = ($no_results instanceof Closure) ? $no_results() : $no_results;
 
-	$list_classes = $type == 'page/components/gallery' ? ['elgg-gallery'] : ['elgg-list'];
+	$list_classes = $hook->getType() == 'page/components/gallery' ? ['elgg-gallery'] : ['elgg-list'];
 	if (isset($vars['list_class'])) {
 		$list_classes = elgg_extract_class($vars, $list_classes, 'list_class');
 	}
@@ -156,14 +154,12 @@ function hypelists_wrap_list_view_hook($hook, $type, $view, $params) {
 /**
  * Filters some of the view vars
  *
- * @param string $hook   "view_vars"
- * @param string $type   List view name
- * @param array  $vars   View vars
- * @param array  $params Hook params
+ * @param \Elgg\Hook $hook 'view_vars'
+ *
  * @return array
  */
-function hypelists_filter_vars($hook, $type, $vars, $params) {
-
+function hypelists_filter_vars(\Elgg\Hook $hook) {
+	$vars = $hook->getValue();
 	$vars['base_url'] = hypelists_prepare_base_url(elgg_extract('base_url', $vars), $vars);
 	return $vars;
 }
