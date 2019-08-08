@@ -139,7 +139,7 @@ function hypelists_wrap_list_view_hook(\Elgg\Hook $hook) {
 	}
 
 	$script = elgg_view('components/list/require');
-	$result = elgg_format_element('div', $wrapper_params, $view) . $script;
+	$result = elgg_format_element('div', $wrapper_params, $hook->getValue()) . $script;
 	
 	if (elgg_is_xhr() && get_input('list_id') === $list_id) {
 		$response = elgg_ok_response($result);
