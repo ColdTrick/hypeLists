@@ -196,7 +196,11 @@ define(function (require) {
 
 			var $pageItems = self.filterPageItems(startPageIndex, endPageIndex);
 
-			self.$list.children().not($pageItems).removeClass(self.options.classVisible).addClass(self.options.classHidden);
+			var $children = self.$list.children().not($pageItems);
+			$children = $children.filter(function() {
+				return $(this).hasClass('elgg-item');
+			});
+			$children.removeClass(self.options.classVisible).addClass(self.options.classHidden);
 
 			if ($pageItems.length === 0) {
 				self.$list.hide();
@@ -513,7 +517,7 @@ define(function (require) {
 				$list = $list.children('.elgg-list,.elgg-gallery');
 			}
 			return $list.children().filter(function () {
-				return !(self.$list.children().is('#' + $(this).attr('id')));
+				return !(self.$list.children().is('#' + $(this).attr('id'))) && $(this).hasClass('elgg-item');
 			});
 		},
 		/**
@@ -588,8 +592,10 @@ define(function (require) {
 
 			if ($items.length) {
 				$items.each(function (itIndex) {
-					itemIndex = offset + baseIndex + itIndex;
-					$(this).data('item-index', itemIndex);
+					if ($(this).hasClass('elgg-item')) {
+						itemIndex = offset + baseIndex + itIndex;
+						$(this).data('item-index', itemIndex);
+					}
 					$(this).appendTo(self.$list);
 				});
 				self.sortList();
