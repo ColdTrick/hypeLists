@@ -9,7 +9,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function init() {
+	public function ready() {
 		$this->registerHooks();
 	}
 	
