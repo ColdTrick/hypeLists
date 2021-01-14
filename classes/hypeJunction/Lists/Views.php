@@ -136,11 +136,10 @@ class Views {
 		}
 		
 		// Need absolute URL (embed causes trouble)
-		$base_url = elgg_normalize_url($base_url);
-		
-		$base_url = elgg_http_remove_url_query_element($base_url, 'limit');
-		$base_url = elgg_http_remove_url_query_element($base_url, elgg_extract('offset_key', $vars, 'offset'));
-		
-		return $base_url;
+		return elgg_http_add_url_query_elements(elgg_normalize_url($base_url), [
+			'limit' => null,
+			'show_guid' => null, // leaking from comments save submit list reload
+			elgg_extract('offset_key', $vars, 'offset') => null,
+		]);
 	}
 }
