@@ -215,6 +215,13 @@ define(function (require) {
 				$pageItems.removeClass(self.options.classHidden).addClass(self.options.classVisible);
 			}
 
+			// if there are initialized ckeditors in the list, destroy them
+			self.$list.find('[data-cke-init]').each(function(index, item) {
+				if ($(item).data('ckeditorInstance')) {
+					$(item).ckeditorGet().destroy();
+				}
+			});
+			
 			self.$elem.trigger('change', [self.options]);
 		},
 		/**
@@ -642,14 +649,7 @@ define(function (require) {
 			map.sort(function (a, b) {
 				return a.value - b.value;
 			});
-			
-			// if there are initialized ckeditors in the list, destroy them
-			$children.find('[data-cke-init]').each(function(index, item) {
-				if ($(item).data('ckeditorInstance')) {
-					$(item).ckeditorGet().destroy();
-				}
-			});
-			
+					
 			for (i = 0; i < length; i++) {
 				self.$list.append($children[map[i].index]);
 			}
